@@ -14,11 +14,11 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='address',
             name='addressId',
-            field=models.IntegerField(verbose_name='addressId'),
+            field=models.IntegerField(verbose_name='addressId', auto_created=True, primary_key=True, serialize=False),
         ),
         migrations.AlterField(
-            model_name='user',
-            name='userID',
-            field=models.IntegerField(auto_created=True, verbose_name='userId', primary_key=True, serialize=False),
+            model_name='address',
+            name='mailId',
+            field=models.IntegerField(verbose_name='mailId'),
         ),
     ]

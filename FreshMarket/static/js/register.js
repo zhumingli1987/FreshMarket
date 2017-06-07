@@ -47,7 +47,7 @@ $(function(){
 		}
 		else
 		{
-			$.get('/user/register_exit/?userName='+$('#user_name').val(),function (data) {
+			$.get('/user/register_exist/?userName='+$('#user_name').val(), function (data) {
 				if(data.count==1){
 					$('#user_name').next().html('用户名已经存在').show();
 					error_name = false;
