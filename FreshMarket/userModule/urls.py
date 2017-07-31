@@ -8,8 +8,7 @@ urlpatterns = [
     url(r'^login/$', views.login),
     url(r'^login_handle/$', views.login_handle),
     url(r'^logout/$', views.logout),
-    url(r'^center_info', views.user_center),
-    url(r'^center_order', views.user_order),
-    url(r'^center_site', views.user_site),
-
+    url(r'^center_info/$', views.user_center),
+    url(r'^center_order(\d*)/$', views.user_order),
+    url(r'^center_site/$', views.user_site),
 ]

@@ -14,25 +14,31 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='GoodsInfo',
             fields=[
-                ('id', models.AutoField(primary_key=True, auto_created=True, serialize=False, verbose_name='ID')),
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('goodsTitle', models.CharField(max_length=20)),
-                ('goodsIntro', models.CharField(max_length=200)),
                 ('goodsPic', models.ImageField(upload_to='goods')),
                 ('goodsPrice', models.DecimalField(max_digits=6, decimal_places=2)),
+                ('isDelete', models.BooleanField(default=False)),
                 ('goodsUnit', models.CharField(default='500g', max_length=20)),
                 ('goodsClick', models.IntegerField()),
-                ('goodsStock', models.IntegerField()),
+                ('goodsIntro', models.CharField(max_length=200)),
+                ('goodsStorage', models.IntegerField()),
                 ('goodsContent', tinymce.models.HTMLField()),
-                ('isDelete', models.BooleanField(default=False)),
             ],
+            options={
+                'db_table': 'tableGoodsInfo',
+            },
         ),
         migrations.CreateModel(
             name='GoodsType',
             fields=[
-                ('id', models.AutoField(primary_key=True, auto_created=True, serialize=False, verbose_name='ID')),
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('typeTitle', models.CharField(max_length=20)),
                 ('isDelete', models.BooleanField(default=False)),
             ],
+            options={
+                'db_table': 'tableGoodsType',
+            },
         ),
         migrations.AddField(
             model_name='goodsinfo',

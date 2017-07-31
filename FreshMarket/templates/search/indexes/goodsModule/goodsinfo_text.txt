@@ -1,0 +1,3 @@
+{{object.goodsTitle}}
+{{object.goodsIntro}}
+{{object.goodsContent}}

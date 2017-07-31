@@ -1,9 +1,12 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponseRedirect, JsonResponse, HttpResponse
 from django.db.models import Max
+from django.core.paginator import Paginator
 from userModule.models import *
 from hashlib import sha1
-from userModule.decorator_login import checker
+from userModule.decorator_login import *
+from goodsModule.models import *
+from orderModule.models import *
 
 
 # Create your views here.
@@ -100,7 +103,7 @@ def logout(request):
     return redirect('/')
 
 
-@checker
+@login_checker
 def user_center(request):
     user = UserInfo.users.get(userID=request.session['userId'])
     if Address.adds.filter(addToUser=user).exists():
@@ -108,17 +111,36 @@ def user_center(request):
         context = {'title': '用户中心', 'page_name': 1, 'user': user, 'add': add}
     else:
         context = {'title': '用户中心', 'page_name': 1}
-    #  需要插入最近浏览的商品。
+
+    # 最近浏览的商品列表。
+    goods_list = []
+    cookies_gid = request.COOKIES.get('view_list', '')
+    if cookies_gid != '':
+        view_list = cookies_gid.split(',')
+        for gid in view_list:
+            goods_list.append(GoodsInfo.objects.get(id=int(gid)))
+    # 将最近浏览商品插入context返回。
+    context['goods_list'] = goods_list
     return render(request, 'userModule/user_center_info.html', context)
 
 
-@checker
-def user_order(request):
-    context = {'title': '用户中心', 'page_name': 1}
+@login_checker
+def user_order(request, pindex):
+    order_list = OrderInfo.objects.filter(order_user=request.session["userId"]).order_by("-order_id")
+    paginator = Paginator(order_list, 2)
+    if pindex == "":
+        pindex = '1'
+    page = paginator.page(int(pindex))
+    context = {
+        'title': '用户中心',
+        'page_name': 1,
+        'paginator': paginator,
+        'page': page
+    }
     return render(request, 'userModule/user_center_order.html', context)
 
 
-@checker
+@login_checker
 def user_site(request):
     user = UserInfo.users.get(userID=request.session['userId'])
     if request.method == 'POST':

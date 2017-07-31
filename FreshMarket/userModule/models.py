@@ -19,7 +19,6 @@ class UserInfo(models.Model):
     userName = models.CharField('userName', max_length=20, null='false')
     password = models.CharField('password', max_length=40, null='false')
     email = models.CharField('email', max_length=40, null='false')
-    userTelephone = models.CharField('userTelephone', max_length=20)
     isDelete = models.BooleanField(default='false')
     users = UserInfoManager()
 

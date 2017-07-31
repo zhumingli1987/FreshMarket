@@ -20,5 +20,8 @@ urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
     url(r'^tinymce/', include('tinymce.urls')),
     url(r'^user/', include('userModule.urls')),
-    url(r'^', include('goodsModule.urls'))
+    url(r'^cart/', include('cartModule.urls')),
+    url(r'^order/', include('orderModule.urls')),
+    url(r'^', include('goodsModule.urls')),
+    # url(r'^search/', include('haystack.urls')),
 ]
